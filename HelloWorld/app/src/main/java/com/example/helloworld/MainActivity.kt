@@ -11,16 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.runtime.Composable
-import com.example.helloworld.ui.theme.HelloWorldTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +27,9 @@ class MainActivity : ComponentActivity() {
         val myButton = findViewById<Button>(R.id.paint)
         val customView = findViewById<CustomView>(R.id.custom_view)
 
-        val backButton: Button = findViewById(R.id.Back)
+        val backButton = findViewById<Button>(R.id.Back_btn)
+
+        val unlucky = findViewById<Button>(R.id.btn)
         backButton.setOnClickListener {
             // SecondActivityに遷移
             finish()
@@ -46,22 +39,19 @@ class MainActivity : ComponentActivity() {
             customView.visibility = View.VISIBLE // カスタムビューを表示
             customView.invalidate() // 再描画を要求
         }
+
+        unlucky.setOnClickListener{
+            Toast.makeText(this, "はずれ", Toast.LENGTH_LONG).show()
+        }
+
+        val start = findViewById<Button>(R.id.complete)
+        start.setOnClickListener{
+            val intent = Intent(this,Result::class.java)
+            startActivity(intent)
+        }
     }
 
-    fun Back(view:View){
-        Toast.makeText(this, "ボタンがクリックされました！", Toast.LENGTH_SHORT).show()
-        finish()
-    }
-
-    fun Paint(view:View){
-        Toast.makeText(this, "色ヌルボタンがクリックされました！", Toast.LENGTH_SHORT).show()
-    }
-
-    fun onClickMyButton(view: View) {
-        Toast.makeText(this, "はずれ", Toast.LENGTH_LONG).show()
-    }
 }
-
 // CustomViewの定義 (従来のビュー)
 class CustomView(context: Context?, attrs: AttributeSet? = null) : View(context, attrs) {
     private var paint: Paint? = null
