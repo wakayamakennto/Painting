@@ -9,5 +9,6 @@ class Result : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.result_menu)
 
+        val result =""
     }
 }

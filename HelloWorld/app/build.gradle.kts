@@ -1,7 +1,7 @@
 plugins {
     id ("com.android.application")
     id ("kotlin-android")
-    id ("com.chaquo.python")
+    id ("com.chaquo.python") version "15.0.1"
 }
 
 android {
@@ -57,6 +57,19 @@ android {
     }
 }
 
+chaquopy{
+    defaultConfig{
+        buildPython("\"C:/Users/syake/AppData/Local/Programs/Python/Python312/python.exe\"")
+
+        pip{
+            install("numpy")
+            install("pandas")
+            install("Pillow")
+            install("opencv-python")
+        }
+    }
+}
+
 dependencies {
     implementation("androidx.activity:activity-compose:1.7.2") // これは最新のバージョンです
     implementation("androidx.compose.ui:ui:1.5.1") // 最新バージョン
@@ -67,10 +80,10 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4") // 最新バージョンを使用
     implementation ("androidx.appcompat:appcompat:1.5.1")
     implementation ("androidx.core:core-ktx:1.9.0")
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.0")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.1") // 最新バージョン
     debugImplementation("androidx.compose.ui:ui-tooling:1.5.1") // 最新バージョン
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.5.1") // 最新バージョン
-
 
     // テストおよびデバッグ用依存関係
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.1") // 最新バージョン

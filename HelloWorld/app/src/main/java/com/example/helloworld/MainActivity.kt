@@ -12,6 +12,10 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.platform.ComposeView
+import com.chaquo.python.PyObject
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
+import android.util.Log
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,16 +24,39 @@ class MainActivity : ComponentActivity() {
         // XMLレイアウトを使ってビューをセット
         setContentView(R.layout.activity_main)
 
+        // Pythonの初期化 (AndroidPlatformの指定)
+        if (!Python.isStarted()) {
+            Python.start(AndroidPlatform(this))
+        }
+        //pythonのインスタンスを取得
+        val py = Python.getInstance()
+
         // ComposeViewの設定
         val composeView = findViewById<ComposeView>(R.id.compose_view)
 
         // ボタンとカスタムビューの設定
         val myButton = findViewById<Button>(R.id.paint)
         val customView = findViewById<CustomView>(R.id.custom_view)
-
         val backButton = findViewById<Button>(R.id.Back_btn)
-
         val unlucky = findViewById<Button>(R.id.btn)
+        val start = findViewById<Button>(R.id.complete)
+        val python = Python.getInstance()
+
+        //pythonスクリプトを呼び出し
+        val pythonModule:PyObject = python.getModule("canny_and_pypx")
+
+        //画像ファイルのパス指定(input,output)
+        val inputImageId = R.drawable.regiscan
+        val outputImagePath = "${getExternalFilesDir(null)?.absolutePath}/pixel_art_output.png"
+
+        //Python関数を呼び出し、処理後の画像パスを取得
+        val result: PyObject = pythonModule.callAttr(
+            "process_image",
+            "android.resource://$packageName/$inputImageId",  // 入力画像パス
+            outputImagePath,
+            128,  // ピクセルサイズ
+            16    // 色数
+        )
         backButton.setOnClickListener {
             // SecondActivityに遷移
             finish()
@@ -44,7 +71,6 @@ class MainActivity : ComponentActivity() {
             Toast.makeText(this, "はずれ", Toast.LENGTH_LONG).show()
         }
 
-        val start = findViewById<Button>(R.id.complete)
         start.setOnClickListener{
             val intent = Intent(this,Result::class.java)
             startActivity(intent)

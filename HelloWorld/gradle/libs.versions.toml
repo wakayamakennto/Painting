@@ -30,4 +30,4 @@ constraintlayout = {module = "androidx.constraintlayout:constraintlayout", versi
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-chaquo= { id = "com.chaquo.python", version = "9.1.0" }  # Chaquopyプラグインの定義
+chaquo= { id = "com.chaquo.python", version = "15.0.1" }  # Chaquopyプラグインの定義
