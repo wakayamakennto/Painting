@@ -59,7 +59,7 @@ android {
 
 chaquopy{
     defaultConfig{
-        buildPython("\"C:/Users/syake/AppData/Local/Programs/Python/Python312/python.exe\"")
+        buildPython("\"C:/Users/waken/AppData/Local/Programs/Python/Python312/python.exe\"")
 
         pip{
             install("numpy")
@@ -90,4 +90,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling:1.5.1") // 最新バージョン
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.5.1") // 最新バージョン
 }
+
 
